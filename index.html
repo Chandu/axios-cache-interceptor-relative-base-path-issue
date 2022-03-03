@@ -1,0 +1,27 @@
+<script src="https://cdn.jsdelivr.net/npm/axios@0.26.0/dist/axios.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios-cache-interceptor@0.9.2/umd/index.min.js"></script>
+
+<script>
+  var clientsApi = axios.create({
+    baseURL: '/clients/api'
+  });
+
+  clientsApi.get('/info').then(a => {
+    console.log('Received response: ', a.data);
+  }).catch(err => {
+    console.log('Error using vanialla axios');
+    console.error(err);
+  });
+
+  var clientsApiWithCache = AxiosCacheInterceptor.setupCache(axios.create({
+    baseURL: '/clients/api'
+  }));
+
+  
+  clientsApiWithCache.get('/info').then(a => {
+    console.log('Received response using setupCache: ', a.data);
+  }).catch(err => {
+    console.log('Error using setupCache');
+    console.error(err);
+  });
+</script>
